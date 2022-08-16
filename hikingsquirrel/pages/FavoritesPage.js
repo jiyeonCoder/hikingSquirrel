@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function SignUpPage({ route }) {
+export default function FavoritesPage() {
   return (
     <View>
-      <Text>SignUpPage</Text>
-      <Text>{route.params.title}</Text>
+      <Text>FavoritesPage</Text>
     </View>
   );
 }
