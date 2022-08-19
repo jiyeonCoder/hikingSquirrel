@@ -12,7 +12,8 @@ import {
   Label,
   Button,
 } from 'native-base';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+//import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+
 const bImage = require('../assets/background.png');
 
 export default function SignInPage({ navigation }) {
