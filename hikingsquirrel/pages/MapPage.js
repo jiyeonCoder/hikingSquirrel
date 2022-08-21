@@ -16,13 +16,47 @@ import CardComponent from '../components/CardComponent';
 
 const data = require('../data.json');
 
-export default function MapPage() {
+export default function MapPage(navigation) {
   return (
     <Container>
       <HeaderComponent />
-      <CardComponent />
+      <Content>
+        <Grid style={styles.banner}>
+          <Col size={1} style={{ padding: 20 }}>
+            <Icon name="paper-plane" style={{ color: 'deeppink' }} />
+          </Col>
+          <Col size={6} style={{ padding: 15 }}>
+            <Text>Track of your Hiking</Text>
+            <Text>
+              with <Text style={{ fontWeight: '700' }}>HikingSquirrel!</Text>
+            </Text>
+          </Col>
+        </Grid>
+        <Grid style={{ padding: 20 }}>
+          <Text style={{ color: 'grey' }}>FROM THE DIARY</Text>
+        </Grid>
+        <View style={{ marginTop: -20 }}>
+          {data.diary.map((content, i) => {
+            return (
+              <CardComponent
+                content={content}
+                key={i}
+                navigation={navigation}
+              />
+            );
+          })}
+        </View>
+      </Content>
     </Container>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: '#F6F6F6',
+    height: 70,
+    borderRadius: 10,
+    width: '90%',
+    alignSelf: 'center',
+  },
+});
