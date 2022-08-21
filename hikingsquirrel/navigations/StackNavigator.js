@@ -17,8 +17,8 @@ const StackNavigator = () => {
       }}
     >
       {/* Making components to pages */}
-      <Stack.Screen name="SignInPage" component={SignInPage} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      <Stack.Screen name="SignInPage" component={SignInPage} />
       <Stack.Screen name="DetailPage" component={DetailPage} />
       <Stack.Screen name="MyDetailPage" component={MyDetailPage} />
       <Stack.Screen name="RecordPage" component={RecordPage} />
