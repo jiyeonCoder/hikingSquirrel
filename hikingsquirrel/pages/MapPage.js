@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import HeaderComponent from '../components/HeaderComponent';
 import CardComponent from '../components/CardComponent';
+import * as Animatable from 'react-native-animatable';
 
 const data = require('../data.json');
 
@@ -21,17 +22,25 @@ export default function MapPage(navigation) {
     <Container>
       <HeaderComponent />
       <Content>
-        <Grid style={styles.banner}>
-          <Col size={1} style={{ padding: 20 }}>
-            <Icon name="paper-plane" style={{ color: 'deeppink' }} />
-          </Col>
-          <Col size={6} style={{ padding: 15 }}>
-            <Text>Track of your Hiking</Text>
-            <Text>
-              with <Text style={{ fontWeight: '700' }}>HikingSquirrel!</Text>
-            </Text>
-          </Col>
-        </Grid>
+        <Animatable.View
+          animation="pulse"
+          easing="ease-out"
+          iterationCount={'infinite'}
+          direction="alternate"
+        >
+          <Grid style={styles.banner}>
+            <Col size={1} style={{ padding: 20 }}>
+              <Icon name="paper-plane" style={{ color: 'deeppink' }} />
+            </Col>
+            <Col size={6} style={{ padding: 15 }}>
+              <Text>Track of your Hiking</Text>
+              <Text>
+                with <Text style={{ fontWeight: '700' }}>HikingSquirrel!</Text>
+              </Text>
+            </Col>
+          </Grid>
+        </Animatable.View>
+
         <Grid style={{ padding: 20 }}>
           <Text style={{ color: 'grey' }}>FROM THE DIARY</Text>
         </Grid>
