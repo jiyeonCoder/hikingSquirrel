@@ -17,7 +17,10 @@ import * as Animatable from 'react-native-animatable';
 
 const data = require('../data.json');
 
-export default function MapPage(navigation) {
+export default function MapPage({ navigation }) {
+  // const goDetailPage = () => {
+  //   navigation.navigate('DetailPage', { title: '메인 페이지에서 왔음' });
+  // };
   return (
     <Container>
       <HeaderComponent />
