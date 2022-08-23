@@ -9,7 +9,7 @@ export default function HeaderComponent() {
     <Header transparent>
       <Left>
         <Button transparent>
-          <Image source={logo} style={StyleSheet.logoImage} />
+          <Image source={logo} style={styles.logoImage} />
         </Button>
       </Left>
       <Right>
@@ -21,7 +21,7 @@ export default function HeaderComponent() {
 
 const styles = StyleSheet.create({
   logoImage: {
-    width: 100,
+    width: 150,
     resizeMode: 'contain',
     marginTop: 10,
   },

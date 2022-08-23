@@ -52,7 +52,9 @@ export default function MyMainPage({ navigation }) {
 const styles = StyleSheet.create({
   thumbnail: {
     alignSelf: 'center',
-    marginTop: 30,
+    marginTop: 10,
+    width: 120,
+    height: 120,
   },
   myTitle: {
     alignSelf: 'center',
