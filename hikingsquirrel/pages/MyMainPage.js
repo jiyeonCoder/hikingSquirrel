@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
+import { Container, Content, Thumbnail, Text } from 'native-base';
+import HeaderComponent from '../components/HeaderComponent';
+
+const squirrel = require('../assets/squirrel.png');
 
 export default function MyMainPage({ navigation }) {
   useEffect(() => {
@@ -9,10 +13,19 @@ export default function MyMainPage({ navigation }) {
     return unsubscribe;
   }, [navigation]);
   return (
-    <View>
-      <Text>MyMainPage</Text>
-    </View>
+    <Container>
+      <HeaderComponent />
+      <Content>
+        <Thumbnail large source={squirrel} style={styles.thumbnail} />
+        <Text style={styles.myTitle}>MySquirrel</Text>
+      </Content>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  thumbnail: {
+    alignSelf: 'center',
+    marginTop: 30,
+  },
+});
