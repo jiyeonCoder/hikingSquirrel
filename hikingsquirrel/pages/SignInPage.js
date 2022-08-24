@@ -18,13 +18,15 @@ import ItemInput from '../components/ItemInput';
 const bImage = require('../assets/background.png');
 
 export default function SignInPage({ navigation }) {
-  const [email, setEmail] = useState('a');
-  const [password, setPassword] = useState('b');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  //Activate when SignUp button pressed
   const goSignUp = () => {
     navigation.navigate('SignUpPage', { title: '회원가입 페이지에서 왔음' });
   };
 
+  //Activate when SignIn button pressed
   const doSignIn = () => {
     console.log(email);
     console.log(password);
