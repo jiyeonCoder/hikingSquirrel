@@ -21,6 +21,9 @@ export default function SignInPage({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   //Activate when SignUp button pressed
   const goSignUp = () => {
     navigation.navigate('SignUpPage', { title: '회원가입 페이지에서 왔음' });
@@ -30,6 +33,18 @@ export default function SignInPage({ navigation }) {
   const doSignIn = () => {
     console.log(email);
     console.log(password);
+
+    if (email == '') {
+      setEmailError('Please type your email');
+    } else {
+      setEmailError('');
+    }
+
+    if (password == '') {
+      setPasswordError('Please type your password');
+    } else {
+      setPasswordError('');
+    }
   };
 
   const setEmailFunc = (itemInputEmail) => {
@@ -48,11 +63,17 @@ export default function SignInPage({ navigation }) {
             <Text style={styles.highlite}>Hiking</Text>Squirrel
           </Text>
           <Form style={styles.form}>
-            <ItemInput title={'Email'} type={'email'} setFunc={setEmailFunc} />
+            <ItemInput
+              title={'Email'}
+              type={'email'}
+              setFunc={setEmailFunc}
+              error={emailError}
+            />
             <ItemInput
               title={'Password'}
               type={'password'}
               setFunc={setPasswordFunc}
+              error={passwordError}
             />
 
             {/* <Item floatingLabel last>
