@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -12,14 +12,32 @@ import {
   Label,
   Button,
 } from 'native-base';
+import ItemInput from '../components/ItemInput';
 //import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 
 const bImage = require('../assets/background.png');
 
 export default function SignInPage({ navigation }) {
+  const [email, setEmail] = useState('a');
+  const [password, setPassword] = useState('b');
+
   const goSignUp = () => {
     navigation.navigate('SignUpPage', { title: '회원가입 페이지에서 왔음' });
   };
+
+  const doSignIn = () => {
+    console.log(email);
+    console.log(password);
+  };
+
+  const setEmailFunc = (itemInputEmail) => {
+    setEmail(itemInputEmail);
+  };
+
+  const setPasswordFunc = (itemInputPassword) => {
+    setPassword(itemInputPassword);
+  };
+
   return (
     <Container>
       <ImageBackground source={bImage} style={styles.backgroundImage}>
@@ -28,16 +46,24 @@ export default function SignInPage({ navigation }) {
             <Text style={styles.highlite}>Hiking</Text>Squirrel
           </Text>
           <Form style={styles.form}>
-            <Item floatingLabel last>
+            <ItemInput title={'Email'} type={'email'} setFunc={setEmailFunc} />
+            <ItemInput
+              title={'Password'}
+              type={'password'}
+              setFunc={setPasswordFunc}
+            />
+
+            {/* <Item floatingLabel last>
               <Label style={styles.label}>Email</Label>
               <Input style={styles.input} />
             </Item>
             <Item floatingLabel last>
               <Label style={styles.label}>Password</Label>
               <Input style={styles.input} />
-            </Item>
+            </Item> */}
           </Form>
-          <Button full style={styles.emailSignIn}>
+
+          <Button full style={styles.emailSignIn} onPress={doSignIn}>
             <Text>Email SignIn</Text>
           </Button>
           <Button full style={styles.emailSignUp} onPress={goSignUp}>
