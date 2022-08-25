@@ -11,6 +11,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Loading from './pages/Loading';
 
+import * as firebase from 'firebase/compat';
+import apikeys from './config/key';
+
 export default function App() {
   const [ready, setReady] = useState(false);
 

@@ -35,13 +35,13 @@ export default function SignInPage({ navigation }) {
     console.log(password);
 
     if (email == '') {
-      setEmailError('Please type your email');
+      setEmailError('Email is required');
     } else {
       setEmailError('');
     }
 
     if (password == '') {
-      setPasswordError('Please type your password');
+      setPasswordError('Password is required');
     } else {
       setPasswordError('');
     }
