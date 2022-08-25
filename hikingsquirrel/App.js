@@ -17,6 +17,12 @@ import apikeys from './config/key';
 export default function App() {
   const [ready, setReady] = useState(false);
 
+  //Connect to firebase when the libary is ready.
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase');
+    firebase.initializeApp(apikeys.firebaseConfig);
+  }
+
   const loadFont = () => {
     setTimeout(async () => {
       await Font.loadAsync({
