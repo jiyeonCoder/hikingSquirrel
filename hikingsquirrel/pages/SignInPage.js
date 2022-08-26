@@ -14,6 +14,7 @@ import {
 } from 'native-base';
 import ItemInput from '../components/ItemInput';
 //import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { signIn } from '../config/firebaseFunctions';
 
 const bImage = require('../assets/background.png');
 
@@ -45,6 +46,8 @@ export default function SignInPage({ navigation }) {
     } else {
       setPasswordError('');
     }
+
+    signIn(email, password, navigation);
   };
 
   const setEmailFunc = (itemInputEmail) => {

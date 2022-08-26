@@ -20,3 +20,13 @@ export async function registration(nickName, email, password) {
     Alert.alert("There's an error! => ", err.message);
   }
 }
+
+export async function signIn(email, password, navigation) {
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    console.log('login Success!!! :)');
+    navigation.replace('TabNavigator');
+  } catch (err) {
+    Alert.alert('There is an error logging in!', err.message);
+  }
+}
