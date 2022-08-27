@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -24,6 +24,12 @@ export default function SignInPage({ navigation }) {
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+    });
+  }, []);
 
   //Activate when SignUp button pressed
   const goSignUp = () => {

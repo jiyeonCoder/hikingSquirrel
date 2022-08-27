@@ -25,7 +25,7 @@ export async function signIn(email, password, navigation) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     console.log('login Success!!! :)');
-    navigation.replace('TabNavigator');
+    navigation.navigate('TabNavigator');
   } catch (err) {
     Alert.alert('There is an error logging in!', err.message);
   }

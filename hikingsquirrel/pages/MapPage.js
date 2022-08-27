@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {
@@ -21,6 +21,12 @@ export default function MapPage({ navigation }) {
   // const goDetailPage = () => {
   //   navigation.navigate('DetailPage', { title: '메인 페이지에서 왔음' });
   // };
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      console.log('aaabbbccc');
+    });
+  }, []);
   return (
     <Container>
       <HeaderComponent />
