@@ -21,6 +21,8 @@ export default function MapPage({ navigation }) {
   // const goDetailPage = () => {
   //   navigation.navigate('DetailPage', { title: '메인 페이지에서 왔음' });
   // };
+
+  //prevent going back from this MapPage
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();

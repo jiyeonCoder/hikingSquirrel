@@ -25,6 +25,7 @@ export default function SignInPage({ navigation }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  //prevent going back from this SignInPage
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();

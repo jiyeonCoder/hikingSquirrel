@@ -2,7 +2,7 @@ import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
 import { Alert } from 'react-native';
 
-export async function registration(nickName, email, password) {
+export async function registration(nickName, email, password, navigation) {
   try {
     console.log(nickName, email, password);
     //Create a new user
@@ -16,6 +16,8 @@ export async function registration(nickName, email, password) {
     console.log('CurrentUser: ');
     console.log(currentUser);
     Alert.alert('Signing Up Success!');
+    //Prevent going back from this SignUpPage
+    navigation.push('TabNavigator');
   } catch (err) {
     Alert.alert("There's an error! => ", err.message);
   }

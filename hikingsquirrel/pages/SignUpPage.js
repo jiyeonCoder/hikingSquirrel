@@ -62,7 +62,7 @@ export default function SignUpPage({ navigation }) {
       setConfirmPasswordError('');
     }
 
-    registration(nickName, email, password);
+    registration(nickName, email, password, navigation);
   };
 
   return (
