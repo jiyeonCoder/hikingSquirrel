@@ -2,6 +2,7 @@ import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
 import { Alert } from 'react-native';
 
+//Registration
 export async function registration(nickName, email, password, navigation) {
   try {
     console.log(nickName, email, password);
@@ -23,12 +24,25 @@ export async function registration(nickName, email, password, navigation) {
   }
 }
 
+//SignIn
 export async function signIn(email, password, navigation) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     console.log('login Success!!! :)');
-    navigation.navigate('TabNavigator');
+    navigation.push('TabNavigator');
   } catch (err) {
     Alert.alert('There is an error logging in!', err.message);
+  }
+}
+
+export async function signOut(navigation) {
+  try {
+    console.log('SignOut!!!');
+    const currentUser = firebase.auth().currentUser;
+    console.log(currentUser);
+    await firebase.auth().signOut();
+    navigation.push('SignInPage');
+  } catch (err) {
+    Alert.alert('An Issue accured in sign out', err.message);
   }
 }

@@ -29,6 +29,7 @@ export default function MapPage({ navigation }) {
       console.log('aaabbbccc');
     });
   }, []);
+
   return (
     <Container>
       <HeaderComponent />

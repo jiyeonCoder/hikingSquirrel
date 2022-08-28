@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, Dimensions } from 'react-native';
 import { Container, Content, Thumbnail, Text, Grid, Col } from 'native-base';
 import HeaderComponent from '../components/HeaderComponent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ImageComponent from '../components/ImageComponent';
+import { signOut } from '../config/firebaseFunctions';
 
 const squirrel = require('../assets/squirrel.png');
 const data = require('../data.json');
+//const imageWidth = Dimensions.get('window').width / 3;
 
 export default function MyMainPage({ navigation }) {
   useEffect(() => {
@@ -15,6 +17,10 @@ export default function MyMainPage({ navigation }) {
     });
     return unsubscribe;
   }, [navigation]);
+
+  const signOutFunc = () => {
+    signOut(navigation);
+  };
   return (
     <Container>
       <HeaderComponent />
@@ -22,7 +28,7 @@ export default function MyMainPage({ navigation }) {
         <Thumbnail large source={squirrel} style={styles.thumbnail} />
         <Text style={styles.myTitle}>My HikingSquirrel</Text>
         <Text style={{ alignSelf: 'center' }}>jiyeon.choi218@gmail.com</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOutFunc}>
           <Text style={styles.signOut}>Sign Out</Text>
         </TouchableOpacity>
         <Grid style={{ marginTop: 30 }}>

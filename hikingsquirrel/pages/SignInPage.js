@@ -2,23 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {
-  Container,
-  Content,
-  Text,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-} from 'native-base';
+import { Container, Content, Text, Form, Button } from 'native-base';
 import ItemInput from '../components/ItemInput';
 //import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import { signIn } from '../config/firebaseFunctions';
+import Loading from './Loading';
 
 const bImage = require('../assets/background.png');
 
 export default function SignInPage({ navigation }) {
+  const [ready, setReady] = useState(false);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,6 +24,9 @@ export default function SignInPage({ navigation }) {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
     });
+    setTimeout(() => {
+      setReady(true);
+    }, 1000);
   }, []);
 
   //Activate when SignUp button pressed
@@ -65,7 +62,7 @@ export default function SignInPage({ navigation }) {
     setPassword(itemInputPassword);
   };
 
-  return (
+  return ready ? (
     <Container>
       <ImageBackground source={bImage} style={styles.backgroundImage}>
         <Content contentContainerStyle={styles.content} scrollEnabled={true}>
@@ -104,14 +101,16 @@ export default function SignInPage({ navigation }) {
           </Button>
         </Content>
       </ImageBackground>
-      <Content padder></Content>
+      {/* <Content padder></Content> */}
     </Container>
+  ) : (
     // <View>
     //   <Text>SignInPage</Text>
     //   <TouchableOpacity onPress={goSignUp}>
     //     <Text>회원가입 하러가기</Text>
     //   </TouchableOpacity>
     // </View>
+    <Loading />
   );
 }
 
