@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
 import { Alert } from 'react-native';
@@ -28,6 +29,7 @@ export async function registration(nickName, email, password, navigation) {
 export async function signIn(email, password, navigation) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
+    await AsuncStorage.setItem('session', email);
     console.log('login Success!!! :)');
     navigation.push('TabNavigator');
   } catch (err) {
@@ -40,6 +42,7 @@ export async function signOut(navigation) {
     console.log('SignOut!!!');
     const currentUser = firebase.auth().currentUser;
     console.log(currentUser);
+    await AsyncStorage.removeItem('session');
     await firebase.auth().signOut();
     navigation.push('SignInPage');
   } catch (err) {
