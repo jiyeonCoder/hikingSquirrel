@@ -29,7 +29,7 @@ export async function registration(nickName, email, password, navigation) {
 export async function signIn(email, password, navigation) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
-    await AsuncStorage.setItem('session', email);
+    await AsyncStorage.setItem('session', email);
     console.log('login Success!!! :)');
     navigation.push('TabNavigator');
   } catch (err) {

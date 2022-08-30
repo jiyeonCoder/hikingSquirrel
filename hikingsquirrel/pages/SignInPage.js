@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Content, Text, Form, Button } from 'native-base';
 import ItemInput from '../components/ItemInput';
 //import { ViewPropTypes } from 'deprecated-react-native-prop-types';
@@ -25,6 +26,15 @@ export default function SignInPage({ navigation }) {
       e.preventDefault();
     });
     setTimeout(() => {
+      AsyncStorage.getItem('session', (err, result) => {
+        console.log('ASYNCSTORAGE');
+        console.log(result);
+        if (result) {
+          navigation.push('TabNavigator');
+        } else {
+          setReady(true);
+        }
+      });
       setReady(true);
     }, 1000);
   }, []);
