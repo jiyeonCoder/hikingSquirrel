@@ -6,6 +6,7 @@ import RecordPage from '../pages/RecordPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
 import TabNavigator from './TabNavigator';
+import AddPage from '../pages/AddPage';
 
 const Stack = createStackNavigator();
 

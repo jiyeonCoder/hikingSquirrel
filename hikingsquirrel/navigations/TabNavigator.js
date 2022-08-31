@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapPage from '../pages/MapPage';
 import FavoritesPage from '../pages/FavoritesPage';
 import MyMainPage from '../pages/MyMainPage';
+import AddPage from '../pages/AddPage';
 import { Ionicons } from '@expo/vector-icons';
 
 const Tabs = createBottomTabNavigator();
@@ -17,7 +18,7 @@ const TabNavigator = ({ navigation, route }) => {
 
           if (route.name === 'MapPage') {
             iconName += 'map';
-          } else if (route.name === 'FavoritesPage') {
+          } else if (route.name === 'AddPage') {
             iconName += 'heart';
           } else if (route.name === 'MyMainPage') {
             iconName += 'person-circle';
@@ -44,7 +45,7 @@ const TabNavigator = ({ navigation, route }) => {
       }}
     >
       <Tabs.Screen name="MapPage" component={MapPage} />
-      <Tabs.Screen name="FavoritesPage" component={FavoritesPage} />
+      <Tabs.Screen name="AddPage" component={AddPage} />
       <Tabs.Screen name="MyMainPage" component={MyMainPage} />
     </Tabs.Navigator>
   );
