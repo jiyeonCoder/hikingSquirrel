@@ -22,12 +22,18 @@ const background2 = require('../assets/background2.png');
 const data = require('../data.json');
 const imageWidth = Dimensions.get('window').width / 3;
 
+const tempImage =
+  'https://firebasestorage.googleapis.com/v0/b/sparta-study-plus.appspot.com/o/lecture%2F6-min.png?alt=media&token=bbc87679-4084-40ad-b6cd-01e808983fa4';
+
 export default function AddPage() {
   const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState(tempImage);
 
   const upload = () => {
     console.log('Ready for Uploading');
     console.log(title);
+    console.log(content);
   };
   return (
     <Container>
@@ -42,7 +48,7 @@ export default function AddPage() {
         </Grid>
         <Item regular style={styles.title}>
           <Input
-            placeholder="다이어리 제목을 입력해주세요!"
+            placeholder="Type the title"
             style={{ fontSize: 13 }}
             onChangeText={(text) => setTitle(text)}
           />
@@ -51,11 +57,12 @@ export default function AddPage() {
           <Textarea
             rowSpan={5}
             bordered
-            placeholder="내용을 입력해주세요"
+            placeholder="Type the content"
             style={styles.content}
+            onChangeText={(text) => setContent(text)}
           />
         </Form>
-        <Button full style={styles.uploadButton}>
+        <Button full style={styles.uploadButton} onPress={() => upload()}>
           <Text>Upload</Text>
         </Button>
       </Content>
