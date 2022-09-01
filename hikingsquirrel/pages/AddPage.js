@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { StyleSheet, Image, View, Dimensions, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  StyleSheet,
+  Image,
+  View,
+  Dimensions,
+  Alert,
+  Platform,
+} from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {
   Container,
@@ -21,6 +28,7 @@ import style from 'react-native-image-blur-loading/src/style';
 import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
 import { addDiary } from '../config/firebaseFunctions';
+import * as ImagePicker from 'expo-image-picker';
 
 const background2 = require('../assets/background2.png');
 const data = require('../data.json');
@@ -33,6 +41,20 @@ export default function AddPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(tempImage);
+
+  useEffect(() => {
+    getPermission();
+  }, []);
+
+  const getPermission = async () => {
+    if (Platform.os !== 'web') {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Permission is required to access your Photos');
+      }
+    }
+  };
 
   const upload = async () => {
     console.log('Ready for Uploading');
