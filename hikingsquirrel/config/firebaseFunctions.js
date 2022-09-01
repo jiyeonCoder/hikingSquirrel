@@ -49,3 +49,18 @@ export async function signOut(navigation) {
     Alert.alert('An Issue accured in sign out', err.message);
   }
 }
+
+export async function addDiary(content) {
+  try {
+    const db = firebase.firestore();
+    await db
+      .collection('diary')
+      .doc(content.date + 'J')
+      .set(content);
+    //console.log('number 2');
+    return true;
+  } catch (err) {
+    Alert.alert('An Issue accured in adding the story!', err.message);
+    return false;
+  }
+}

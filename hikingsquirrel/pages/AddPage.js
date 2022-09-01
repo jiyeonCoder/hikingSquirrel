@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, View, Dimensions } from 'react-native';
+import { StyleSheet, Image, View, Dimensions, Alert } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {
   Container,
@@ -18,6 +18,10 @@ import {
 } from 'native-base';
 import HeaderComponent from '../components/HeaderComponent';
 import style from 'react-native-image-blur-loading/src/style';
+import * as firebase from 'firebase/compat';
+import 'firebase/firestore';
+import { addDiary } from '../config/firebaseFunctions';
+
 const background2 = require('../assets/background2.png');
 const data = require('../data.json');
 const imageWidth = Dimensions.get('window').width / 3;
@@ -30,11 +34,32 @@ export default function AddPage() {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(tempImage);
 
-  const upload = () => {
+  const upload = async () => {
     console.log('Ready for Uploading');
-    console.log(title);
-    console.log(content);
+    const currentUser = firebase.auth().currentUser;
+    let date = new Date();
+    let data = {
+      title: title,
+      author: currentUser.email,
+      desc: content,
+      image: image,
+      date: date.getTime(),
+      uid: currentUser.uid,
+    };
+
+    //console.log('number 1');
+
+    let result = await addDiary(data);
+    console.log('3 Result: ');
+    console.log(result);
+    if (result) {
+      console.log('Added!');
+      Alert.alert('Added new story successfully!');
+    } else {
+      Alert.alert('Error!');
+    }
   };
+
   return (
     <Container>
       <HeaderComponent />
