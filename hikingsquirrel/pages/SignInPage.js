@@ -8,6 +8,8 @@ import ItemInput from '../components/ItemInput';
 //import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import { signIn } from '../config/firebaseFunctions';
 import Loading from './Loading';
+import * as firebase from 'firebase/compat';
+import 'firebase/firestore';
 
 const bImage = require('../assets/background.png');
 
@@ -27,13 +29,17 @@ export default function SignInPage({ navigation }) {
     });
     setTimeout(() => {
       AsyncStorage.getItem('session', (err, result) => {
-        console.log('ASYNCSTORAGE');
-        console.log(result);
-        if (result) {
-          navigation.push('TabNavigator');
-        } else {
-          setReady(true);
-        }
+        AsyncStorage.getItem('session2', (err, result2) => {
+          console.log('ASYNCSTORAGE');
+          console.log(result);
+          console.log(result2);
+          if (result) {
+            signIn(result, result2, navigation);
+            //navigation.push('TabNavigator');
+          } else {
+            setReady(true);
+          }
+        });
       });
       setReady(true);
     }, 1000);

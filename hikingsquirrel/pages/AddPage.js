@@ -46,9 +46,10 @@ export default function AddPage() {
     getPermission();
   }, []);
 
+  //Determines the status of the permission
   const getPermission = async () => {
     if (Platform.os !== 'web') {
-      //Determines the status of the permission
+      //Ask whether to give permission
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -60,6 +61,7 @@ export default function AddPage() {
   const upload = async () => {
     console.log('Ready for Uploading');
     const currentUser = firebase.auth().currentUser;
+    console.log('Ready for Uploading2');
     let date = new Date();
     let data = {
       title: title,
@@ -72,6 +74,7 @@ export default function AddPage() {
 
     //console.log('number 1');
 
+    console.log('Ready for Uploading3');
     let result = await addDiary(data);
     console.log('3 Result: ');
     console.log(result);

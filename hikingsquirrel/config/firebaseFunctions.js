@@ -12,9 +12,11 @@ export async function registration(nickName, email, password, navigation) {
     const currentUser = firebase.auth().currentUser;
     //Save the user's info in the Cloud Firestore
     const db = firebase.firestore();
-    db.collection('users')
-      .doc(currentUser.uid)
-      .set({ email: currentUser.email, nickName: nickName });
+    db.collection('users').doc(currentUser.uid).set({
+      email: currentUser.email,
+      nickName: nickName,
+      password: password,
+    });
     console.log('CurrentUser: ');
     console.log(currentUser);
     Alert.alert('Signing Up Success!');
@@ -30,6 +32,7 @@ export async function signIn(email, password, navigation) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     await AsyncStorage.setItem('session', email);
+    await AsyncStorage.setItem('session2', password);
     console.log('login Success!!! :)');
     navigation.push('TabNavigator');
   } catch (err) {
@@ -41,8 +44,10 @@ export async function signOut(navigation) {
   try {
     console.log('SignOut!!!');
     const currentUser = firebase.auth().currentUser;
+    console.log('currentUser(singOut): ');
     console.log(currentUser);
     await AsyncStorage.removeItem('session');
+    await AsyncStorage.removeItem('session2');
     await firebase.auth().signOut();
     navigation.push('SignInPage');
   } catch (err) {
