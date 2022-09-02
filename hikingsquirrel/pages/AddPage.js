@@ -48,6 +48,7 @@ export default function AddPage() {
 
   const getPermission = async () => {
     if (Platform.os !== 'web') {
+      //Determines the status of the permission
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
