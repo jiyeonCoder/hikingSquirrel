@@ -29,7 +29,7 @@ import HeaderComponent from '../components/HeaderComponent';
 import style from 'react-native-image-blur-loading/src/style';
 import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
-import { addDiary } from '../config/firebaseFunctions';
+import { addDiary, imageUpload } from '../config/firebaseFunctions';
 import * as ImagePicker from 'expo-image-picker';
 
 const background2 = require('../assets/background2.png');
@@ -66,6 +66,7 @@ export default function AddPage() {
     const currentUser = firebase.auth().currentUser;
     console.log('Ready for Uploading2');
     let date = new Date();
+    let getTime = date.getTime();
     let data = {
       title: title,
       author: currentUser.email,
@@ -75,9 +76,15 @@ export default function AddPage() {
       uid: currentUser.uid,
     };
 
-    //console.log('number 1');
+    //Get the image file data
+    const response = await fetch(imageUri);
+    //Convert imageData to available image data type as blob readable by Firebase
+    const blob = await response.blob();
+    const imageUrl = await imageUpload(blob, getTime);
+    data.image = imageUrl;
+    console.log(data);
 
-    console.log('Ready for Uploading3');
+    console.log('Ready for Uploading4');
     let result = await addDiary(data);
     console.log('3 Result: ');
     console.log(result);
@@ -103,9 +110,6 @@ export default function AddPage() {
   };
 
   const getImageUrl = async (imageData) => {
-    const response = await fetch(imageData.uri);
-    //Convert imageData to available image data type as blob readable by Firebase
-    const blob = await response.blob();
     setImageUri(imageData.uri);
     //const date=new Date();
     //imageUpload(blob, date.getTime());

@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as firebase from 'firebase/compat';
 import 'firebase/firestore';
 import { Alert } from 'react-native';
+//import 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 //Registration
 export async function registration(nickName, email, password, navigation) {
@@ -68,4 +70,30 @@ export async function addDiary(content) {
     Alert.alert('An Issue accured in adding the story!', err.message);
     return false;
   }
+}
+
+export async function imageUpload(blob, date) {
+  const storage = getStorage();
+  console.log(date);
+  const storageRef = ref(storage, 'diary/' + date);
+  // const storageRef = firebase
+  //   .storage()
+  //   .ref()
+  //   .child('diary/' + date);
+  console.log('Ready for Uploading3');
+  await uploadBytes(storageRef, blob).then(() => {
+    console.log('Uploaded a blob!');
+    //imageUrl = snapshot.ref.getDownloadURL();
+    //imageUrl = getDownloadURL(storageRef);
+  });
+  let imageUrl;
+  await getDownloadURL(storageRef).then((url) => {
+    imageUrl = url;
+    console.log(imageUrl);
+  });
+  // const snapshot = await storageRef.put(blob);
+  //const imageUrl = await snapshot.ref.getDownloadURL();
+  blob.close();
+
+  return imageUrl;
 }
