@@ -46,7 +46,7 @@ export default function AddPage() {
     getPermission();
   }, []);
 
-  //Determines the status of the permission
+  //Determines the status of the permission to access photos
   const getPermission = async () => {
     if (Platform.os !== 'web') {
       //Ask whether to give permission
@@ -86,6 +86,18 @@ export default function AddPage() {
     }
   };
 
+  //Get the Image data from the user's photo album
+  const pickImage = async () => {
+    console.log('Image selected!');
+    let imageData = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+    console.log(imageData);
+  };
+
   return (
     <Container>
       <HeaderComponent />
@@ -94,7 +106,7 @@ export default function AddPage() {
           source={background2}
           style={{ width: '95%', height: 100, borderRadius: 10 }}
         />
-        <Grid style={styles.imageUpload}>
+        <Grid style={styles.imageUpload} onPress={() => pickImage()}>
           <Text style={styles.imageUploadPlus}>+</Text>
         </Grid>
         <Item regular style={styles.title}>
