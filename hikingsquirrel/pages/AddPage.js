@@ -22,6 +22,8 @@ import {
   Input,
   Form,
   Textarea,
+  Pressable,
+  TouchableOpacity,
 } from 'native-base';
 import HeaderComponent from '../components/HeaderComponent';
 import style from 'react-native-image-blur-loading/src/style';
@@ -41,6 +43,7 @@ export default function AddPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(tempImage);
+  const [imageUri, setImageUri] = useState('');
 
   useEffect(() => {
     getPermission();
@@ -86,7 +89,7 @@ export default function AddPage() {
     }
   };
 
-  //Get the Image data from the user's photo album
+  //Get the Image information from the user's photo album
   const pickImage = async () => {
     console.log('Image selected!');
     let imageData = await ImagePicker.launchImageLibraryAsync({
@@ -96,6 +99,16 @@ export default function AddPage() {
       quality: 1,
     });
     console.log(imageData);
+    getImageUrl(imageData);
+  };
+
+  const getImageUrl = async (imageData) => {
+    const response = await fetch(imageData.uri);
+    //Convert imageData to available image data type as blob readable by Firebase
+    const blob = await response.blob();
+    setImageUri(imageData.uri);
+    //const date=new Date();
+    //imageUpload(blob, date.getTime());
   };
 
   return (
@@ -106,9 +119,16 @@ export default function AddPage() {
           source={background2}
           style={{ width: '95%', height: 100, borderRadius: 10 }}
         />
-        <Grid style={styles.imageUpload} onPress={() => pickImage()}>
-          <Text style={styles.imageUploadPlus}>+</Text>
-        </Grid>
+        {imageUri == '' ? (
+          <Grid style={styles.imageUpload} onPress={() => pickImage()}>
+            <Text style={styles.imageUploadPlus}>+</Text>
+          </Grid>
+        ) : (
+          // <Grid style={styles.imageWrapPreview} onPress={() => pickImage()}>
+          //   <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+          // </Grid>
+          <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+        )}
         <Item regular style={styles.title}>
           <Input
             placeholder="Type the title"
@@ -139,6 +159,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'grey',
     borderStyle: 'dashed',
+    width: '90%',
+    height: 200,
+    marginTop: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  imageWrapPreview: {
+    alignSelf: 'center',
+  },
+  imagePreview: {
+    borderRadius: 10,
     width: '90%',
     height: 200,
     marginTop: 20,
