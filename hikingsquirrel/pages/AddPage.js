@@ -72,7 +72,7 @@ export default function AddPage() {
       author: currentUser.email,
       desc: content,
       image: image,
-      date: date.getTime(),
+      date: getTime,
       uid: currentUser.uid,
     };
 
@@ -128,10 +128,10 @@ export default function AddPage() {
             <Text style={styles.imageUploadPlus}>+</Text>
           </Grid>
         ) : (
-          // <Grid style={styles.imageWrapPreview} onPress={() => pickImage()}>
-          //   <Image source={{ uri: imageUri }} style={styles.imagePreview} />
-          // </Grid>
-          <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+          <Grid style={styles.imageWrapPreview} onPress={() => pickImage()}>
+            <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+          </Grid>
+          //<Image source={{ uri: imageUri }} style={styles.imagePreview} />
         )}
         <Item regular style={styles.title}>
           <Input
