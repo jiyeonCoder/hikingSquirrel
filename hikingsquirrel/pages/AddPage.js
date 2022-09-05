@@ -91,6 +91,10 @@ export default function AddPage() {
     if (result) {
       console.log('Added!');
       Alert.alert('Added new story successfully!');
+      setTitle('');
+      setContent('');
+      setImage(tempImage);
+      setImageUri('');
     } else {
       Alert.alert('Error!');
     }
@@ -137,6 +141,7 @@ export default function AddPage() {
           <Input
             placeholder="Type the title"
             style={{ fontSize: 13 }}
+            value={title}
             onChangeText={(text) => setTitle(text)}
           />
         </Item>
@@ -146,6 +151,7 @@ export default function AddPage() {
             bordered
             placeholder="Type the content"
             style={styles.content}
+            value={content}
             onChangeText={(text) => setContent(text)}
           />
         </Form>
