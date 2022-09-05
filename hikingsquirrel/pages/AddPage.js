@@ -98,7 +98,7 @@ export default function AddPage() {
 
   //Get the Image information from the user's photo album
   const pickImage = async () => {
-    console.log('Image selected!');
+    console.log('Ready to select the Image!');
     let imageData = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
