@@ -33,6 +33,7 @@ import { addDiary, imageUpload } from '../config/firebaseFunctions';
 import * as ImagePicker from 'expo-image-picker';
 
 const background2 = require('../assets/background2.png');
+const loading = require('../assets/loading.gif');
 const data = require('../data.json');
 const imageWidth = Dimensions.get('window').width / 3;
 
@@ -44,6 +45,7 @@ export default function AddPage() {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(tempImage);
   const [imageUri, setImageUri] = useState('');
+  const [progress, setProgress] = useState(false);
 
   useEffect(() => {
     getPermission();
@@ -63,7 +65,8 @@ export default function AddPage() {
 
   const upload = async () => {
     console.log('Ready for Uploading');
-    const currentUser = firebase.auth().currentUser;
+    setProgress(true);
+    const currentUser = await firebase.auth().currentUser;
     console.log('Ready for Uploading2');
     let date = new Date();
     let getTime = date.getTime();
@@ -95,7 +98,9 @@ export default function AddPage() {
       setContent('');
       setImage(tempImage);
       setImageUri('');
+      setProgress(false);
     } else {
+      setProgress(false);
       Alert.alert('Error!');
     }
   };
@@ -107,7 +112,7 @@ export default function AddPage() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 4],
-      quality: 1,
+      quality: 0,
     });
     console.log(imageData);
     getImageUrl(imageData);
@@ -121,6 +126,9 @@ export default function AddPage() {
 
   return (
     <Container>
+      {progress == false ? null : (
+        <Image source={loading} style={styles.progress} />
+      )}
       <HeaderComponent />
       <Content>
         <Image
@@ -164,6 +172,15 @@ export default function AddPage() {
 }
 
 const styles = StyleSheet.create({
+  progress: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    position: 'absolute',
+    top: '50%',
+    alignSelf: 'center',
+    zIndex: 2,
+  },
   imageUpload: {
     borderWidth: 2,
     borderRadius: 10,

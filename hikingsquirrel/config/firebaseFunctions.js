@@ -60,6 +60,15 @@ export async function signOut(navigation) {
 export async function addDiary(content) {
   try {
     const db = firebase.firestore();
+    let userRef = await db.collection('users').doc(content.uid);
+    console.log('userRef: ');
+    console.log(userRef);
+
+    let data = await userRef.get().then((doc) => {
+      return doc.data();
+    });
+    console.log(data.nickName);
+    content.author = await data.nickName;
     await db
       .collection('diary')
       .doc(content.date + 'J')
