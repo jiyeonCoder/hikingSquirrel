@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {
@@ -14,10 +14,13 @@ import {
 import HeaderComponent from '../components/HeaderComponent';
 import CardComponent from '../components/CardComponent';
 import * as Animatable from 'react-native-animatable';
+import { getData } from '../config/firebaseFunctions';
 
-const data = require('../data.json');
+//const data = require('../data.json');
 
 export default function MapPage({ navigation }) {
+  const [data, setData] = useState([]);
+
   // const goDetailPage = () => {
   //   navigation.navigate('DetailPage', { title: '메인 페이지에서 왔음' });
   // };
@@ -28,7 +31,13 @@ export default function MapPage({ navigation }) {
       e.preventDefault();
       console.log('aaabbbccc');
     });
+    readyData();
   }, []);
+
+  const readyData = async () => {
+    const data = await getData();
+    setData(data);
+  };
 
   return (
     <Container>
@@ -57,7 +66,7 @@ export default function MapPage({ navigation }) {
           <Text style={{ color: 'grey' }}>FROM THE DIARY</Text>
         </Grid>
         <View style={{ marginTop: -20 }}>
-          {data.diary.map((content, i) => {
+          {data.map((content, i) => {
             return (
               <CardComponent
                 content={content}
