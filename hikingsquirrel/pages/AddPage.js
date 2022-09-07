@@ -66,43 +66,45 @@ export default function AddPage() {
   const upload = async () => {
     console.log('Ready for Uploading');
     setProgress(true);
-    const currentUser = await firebase.auth().currentUser;
-    console.log('Ready for Uploading2');
-    let date = new Date();
-    let getTime = date.getTime();
-    let data = {
-      title: title,
-      author: currentUser.email,
-      desc: content,
-      image: image,
-      date: getTime,
-      uid: currentUser.uid,
-    };
+    setTimeout(async () => {
+      const currentUser = await firebase.auth().currentUser;
+      console.log('Ready for Uploading2');
+      let date = new Date();
+      let getTime = date.getTime();
+      let data = {
+        title: title,
+        author: currentUser.email,
+        desc: content,
+        image: image,
+        date: getTime,
+        uid: currentUser.uid,
+      };
 
-    //Get the image file data
-    const response = await fetch(imageUri);
-    //Convert imageData to available image data type as blob readable by Firebase
-    const blob = await response.blob();
-    const imageUrl = await imageUpload(blob, getTime);
-    data.image = imageUrl;
-    console.log(data);
+      //Get the image file data
+      const response = await fetch(imageUri);
+      //Convert imageData to available image data type as blob readable by Firebase
+      const blob = await response.blob();
+      const imageUrl = await imageUpload(blob, getTime);
+      data.image = imageUrl;
+      console.log(data);
 
-    console.log('Ready for Uploading4');
-    let result = await addDiary(data);
-    console.log('3 Result: ');
-    console.log(result);
-    if (result) {
-      console.log('Added!');
-      Alert.alert('Added new story successfully!');
-      setTitle('');
-      setContent('');
-      setImage(tempImage);
-      setImageUri('');
-      setProgress(false);
-    } else {
-      setProgress(false);
-      Alert.alert('Error!');
-    }
+      console.log('Ready for Uploading4');
+      let result = await addDiary(data);
+      console.log('3 Result: ');
+      console.log(result);
+      if (result) {
+        console.log('Added!');
+        Alert.alert('Added new story successfully!');
+        setTitle('');
+        setContent('');
+        setImage(tempImage);
+        setImageUri('');
+        setProgress(false);
+      } else {
+        setProgress(false);
+        Alert.alert('Error!');
+      }
+    }, 500);
   };
 
   //Get the Image information from the user's photo album
