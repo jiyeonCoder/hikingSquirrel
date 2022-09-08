@@ -110,11 +110,30 @@ export async function imageUpload(blob, date) {
 export async function getData() {
   try {
     const db = firebase.firestore();
-    const snapshot = await db.collection('diary').get();
     let data = [];
+
+    //const snapshot = await db.collection('diary').get();
+    const first = db.collection('diary').orderBy('date', 'desc').limit(5);
+    const snapshot = await first.get();
+
     snapshot.docs.map((doc) => {
+      console.log('Pagenation: 1');
       data.push(doc.data());
     });
+
+    const last = snapshot.docs[snapshot.docs.length - 1];
+
+    const next = db
+      .collection('diary')
+      .orderBy('date', 'desc')
+      .startAfter(last.data().date)
+      .limit(5);
+    const snapshot2 = await next.get();
+    snapshot2.docs.map((doc) => {
+      console.log('Pagenation: 2');
+      data.push(doc.data());
+    });
+
     return data;
   } catch (err) {
     console.log(err);
