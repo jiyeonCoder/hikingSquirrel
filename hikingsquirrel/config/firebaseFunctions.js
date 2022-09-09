@@ -109,6 +109,7 @@ export async function imageUpload(blob, date) {
 
 export async function getData() {
   try {
+    //connect to firestore
     const db = firebase.firestore();
     let data = [];
 
