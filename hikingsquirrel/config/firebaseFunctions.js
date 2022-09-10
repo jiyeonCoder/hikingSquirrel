@@ -82,6 +82,7 @@ export async function addDiary(content) {
 }
 
 export async function imageUpload(blob, date) {
+  //Used new Firebase version
   const storage = getStorage();
   console.log(date);
   const storageRef = ref(storage, 'diary/' + date);
