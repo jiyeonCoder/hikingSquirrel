@@ -81,6 +81,7 @@ export async function addDiary(content) {
   }
 }
 
+//Save and get the image data
 export async function imageUpload(blob, date) {
   //Used new Firebase version
   const storage = getStorage();
