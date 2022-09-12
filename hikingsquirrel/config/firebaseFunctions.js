@@ -140,6 +140,7 @@ export async function getData() {
     return data;
   } catch (err) {
     console.log(err);
+    Alert.alert('An Issue accured in loading the data!', err.message);
     return false;
   }
 }
