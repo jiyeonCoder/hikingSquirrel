@@ -109,7 +109,7 @@ export async function imageUpload(blob, date) {
   return imageUrl;
 }
 
-export async function getData() {
+export async function getData(setNext) {
   try {
     //connect to firestore
     const db = firebase.firestore();
@@ -124,18 +124,23 @@ export async function getData() {
       data.push(doc.data());
     });
 
-    const last = snapshot.docs[snapshot.docs.length - 1];
+    let last;
+    if (snapshot.docs.length !== 0) {
+      last = snapshot.docs[snapshot.docs.length - 1];
+    }
 
-    const next = db
-      .collection('diary')
-      .orderBy('date', 'desc')
-      .startAfter(last.data().date)
-      .limit(5);
-    const snapshot2 = await next.get();
-    snapshot2.docs.map((doc) => {
-      console.log('Pagenation: 2');
-      data.push(doc.data());
-    });
+    setNext(last.data().date);
+
+    // const next = db
+    //   .collection('diary')
+    //   .orderBy('date', 'desc')
+    //   .startAfter(last.data().date)
+    //   .limit(5);
+    // const snapshot2 = await next.get();
+    // snapshot2.docs.map((doc) => {
+    //   console.log('Pagenation: 2');
+    //   data.push(doc.data());
+    // });
 
     return data;
   } catch (err) {

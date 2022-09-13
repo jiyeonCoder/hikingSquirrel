@@ -20,6 +20,7 @@ import { getData } from '../config/firebaseFunctions';
 
 export default function MapPage({ navigation }) {
   const [data, setData] = useState([]);
+  const [next, setNext] = useState(0);
 
   // const goDetailPage = () => {
   //   navigation.navigate('DetailPage', { title: '메인 페이지에서 왔음' });
@@ -35,9 +36,10 @@ export default function MapPage({ navigation }) {
   }, []);
 
   const readyData = async () => {
-    const data = await getData();
+    const data = await getData(setNext);
     setData(data);
   };
+  console.log('Next:' + next);
 
   return (
     <Container>
