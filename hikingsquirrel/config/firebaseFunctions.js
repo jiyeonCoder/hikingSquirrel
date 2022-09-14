@@ -42,6 +42,7 @@ export async function signIn(email, password, navigation) {
   }
 }
 
+//Sign out
 export async function signOut(navigation) {
   try {
     console.log('SignOut!!!');
@@ -57,6 +58,7 @@ export async function signOut(navigation) {
   }
 }
 
+//Add diary
 export async function addDiary(content) {
   try {
     const db = firebase.firestore();
