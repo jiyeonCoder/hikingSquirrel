@@ -58,7 +58,7 @@ export async function signOut(navigation) {
   }
 }
 
-//Add diary
+//Asve diary data into firebase when the Add button pressed
 export async function addDiary(content) {
   try {
     const db = firebase.firestore();
