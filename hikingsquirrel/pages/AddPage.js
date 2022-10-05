@@ -40,6 +40,7 @@ const imageWidth = Dimensions.get('window').width / 3;
 const tempImage =
   'https://firebasestorage.googleapis.com/v0/b/sparta-study-plus.appspot.com/o/lecture%2F6-min.png?alt=media&token=bbc87679-4084-40ad-b6cd-01e808983fa4';
 
+
 export default function AddPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
